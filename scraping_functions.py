@@ -18,9 +18,8 @@ def clean_text(a):
 
 def get_pids(row_data):
     ids = [a.find('a')['href'] for a in row_data if a.find('a') is not None]
-    player_id = [x.replace("pp-", "") for x in ids if "pp-" in x][0]
+    player_id = [x.replace("pp-", "") for x in ids if "pp-" in x][0].split('--')[1]
     return clean_text(player_id)
-
 
 def get_tids(row_data):
     ids = [a.find('a')['href'] for a in row_data if a.find('a') is not None]

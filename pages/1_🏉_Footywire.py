@@ -43,12 +43,14 @@ st.title('Footywire scraping tool')
 
 
 def join_on_brownlow(contract_data,brownlow_data):
-    return pd.merge(contract_data,
+    df = pd.merge(contract_data,
                      brownlow_data,
                      left_on='player_id',
                      right_on='player_id',
                      how='left',
                      suffixes=('_contract', '_brownlow'))
+    df = df.fillna("",inplace=False)
+    return df
 
 
 def get_contract_teams(teams_list,rd):

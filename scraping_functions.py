@@ -43,6 +43,11 @@ def parse_row_data_con(row_data,headers,team):
     return data_dict
 
 
+def parse_row_data_dg_provisional(row_data, headers):
+    data_dict = {headers[i]: clean_text(row_data[i]) for i in range(len(row_data))}
+    return data_dict
+
+
 def get_con_team(team,rd):
     with rd.stdout(format='markdown'):
         print(f'Scraping contracts for {team}')
@@ -88,3 +93,29 @@ def get_brownlow_year(year,rd):
         data_list.append(parse_row_data_bl(row_data, headers))
     return pd.DataFrame(data_list)
 
+
+
+def get_provisional_draft_year(year,rd):
+    with rd.stdout(format='markdown'):
+        print(f'Scraping provisional draft for year {year}')
+
+    # Get URL
+    URL = "https://www.draftguru.com.au/years/" + str(year) + "/provisional-draft-order"
+
+    # Scrape
+    soup = make_soup(URL)
+
+    # Find the right table
+    table = soup.find_all('table', {'class': 'table responsive provisional'})[0]
+
+    # Parse the data
+    header = [a.text for a in table.find_all('th')]
+    body = [a.text for a in table.find_all('td')]
+    data_list = []
+    for e in range(0, len(body), len(header)):
+        row_data = body[e:e + len(header)]
+        data_list.append(parse_row_data_dg_provisional(row_data, header))
+
+    output = pd.DataFrame(data_list)
+    output['year'] = year
+    return output

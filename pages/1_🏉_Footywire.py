@@ -89,4 +89,4 @@ grid_response = AgGrid(st.session_state.data,
 
 st.download_button("Download data",
                    data=grid_response['data'].to_csv(index = False),
-                   file_name='test_data.csv')
+                   file_name='footy_wire.csv')

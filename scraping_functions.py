@@ -95,7 +95,10 @@ def get_brownlow_year(year,rd):
 
 
 
-def get_provisional_draft_year(year=2022):
+def get_provisional_draft_year(year,rd):
+    with rd.stdout(format='markdown'):
+        print(f'Scraping provisional draft for year {year}')
+
     # Get URL
     URL = "https://www.draftguru.com.au/years/" + str(year) + "/provisional-draft-order"
 

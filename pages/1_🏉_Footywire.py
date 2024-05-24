@@ -25,7 +25,7 @@ TEAMS ={"adelaide-crows":"Crows",
 "geelong-cats":'Cats',
 "richmond-tigers":"Tigers"}
 
-BROWNLOW_YEAR = 2022
+BROWNLOW_YEAR = 2023
 
 st.set_page_config(
     page_title="Footy Wire",
